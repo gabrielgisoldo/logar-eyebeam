@@ -17,9 +17,7 @@ while [ "$WID" == "" ]; do
     echo "$WID"
 done
 
-# wine "C:\Program Files (x86)\CounterPath\eyeBeam 1.5\eyeBeam.exe"  -dial="*1"
-
-sleep 2
+sleep 1
 
 #SUBSTITUA RAMAL PELO NÚMERO DO SEU RAMAL
 xdotool windowactivate --sync "$WID" type --delay 700 RAMAL
