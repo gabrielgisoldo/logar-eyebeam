@@ -11,7 +11,8 @@ if [[ ${#xdotool_pkg} -eq 0 ]]; then
     exit
 fi
 
-wine "C:\Program Files (x86)\CounterPath\eyeBeam 1.5\eyeBeam.exe"  -dial="*1"
+EYEBEAM=$( find ${HOME}/.wine/drive_c/ -type f -iname eyebeam.exe )
+wine "${EYEBEAM}"  -dial="*1" &>/dev/null &
 
 sleep 2
 
