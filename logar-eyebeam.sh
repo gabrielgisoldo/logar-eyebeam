@@ -1,8 +1,13 @@
 #!/bin/bash
 wmctrl_pkg=$(ls /var/log/packages | grep wmctrl)
-
+xdotool_pkg=$(ls /var/log/packages | grep xdotool)
 if [[ ${#wmctrl_pkg} -eq 0 ]]; then
     echo "Nao tem wmctrl instalado"
+    exit
+fi
+
+if [[ ${#xdotool_pkg} -eq 0 ]]; then
+    echo "Nao tem xdotool instalado"
     exit
 fi
 
