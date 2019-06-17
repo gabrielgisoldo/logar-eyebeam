@@ -26,10 +26,10 @@ done
 sleep 1
 
 #SUBSTITUA RAMAL PELO NÚMERO DO SEU RAMAL
-xdotool windowactivate --sync "$WID" type --delay 700 RAMAL
+xdotool windowactivate --sync "$WID" type --delay 0.1 RAMAL
 
 sleep 1
 
 #SUBSTITUA SENHA PELA SENHA DO SEU RAMAL.
 #LEMBRE-SE DE MANTER O CERQUILHA (#) NO FIM DA SENHA.
-xdotool windowactivate --sync "$WID" type --delay 700 SENHA#
+xdotool windowactivate --sync "$WID" type --delay 0.1 SENHA#
