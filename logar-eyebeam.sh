@@ -1,6 +1,6 @@
 #!/bin/bash
-wmctrl_pkg=$(ls /var/log/packages | grep wmctrl)
-xdotool_pkg=$(ls /var/log/packages | grep xdotool)
+WMCTRL_PKG=$(ls /var/log/packages | grep wmctrl)
+XDOTOOL_PKG=$(ls /var/log/packages | grep xdotool)
 
 #SUBSTITUA ***** PELO NÚMERO DO SEU RAMAL
 RAMAL=*****
@@ -8,12 +8,12 @@ RAMAL=*****
 #SUBSTITUA ********************** PELA SENHA DO SEU RAMAL.
 SENHA=**********************
 
-if [[ ${#wmctrl_pkg} -eq 0 ]]; then
+if [[ ${#WMCTRL_PKG} -eq 0 ]]; then
     echo "Nao tem wmctrl instalado"
     exit
 fi
 
-if [[ ${#xdotool_pkg} -eq 0 ]]; then
+if [[ ${#XDOTOOL_PKG} -eq 0 ]]; then
     echo "Nao tem xdotool instalado"
     exit
 fi
@@ -42,7 +42,13 @@ xdotool windowactivate --sync "$WID" type --delay 0.1 $SENHA#
 
 sleep 5
 
-firefox -new-tab -url http://totalip5.nube/
+PID_FIREFOX=$( ps -a | grep firefox | awk '{print $1}' | head -n1 )
+
+if [[ ${#PID_FIREFOX} -eq 0 ]]; then
+    firefox -new-tab -url http://totalip5.nube/ &>/dev/null &
+else
+    firefox -new-tab -url http://totalip5.nube/
+fi
 
 WID=""
 TENTATIVAS=0
