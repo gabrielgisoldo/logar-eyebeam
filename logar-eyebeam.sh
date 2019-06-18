@@ -28,24 +28,26 @@ TENTATIVAS=0
 while [[ "$WID" == "" || "$WID" == "0" ]]; do
     # Busca o ID da janela do programa
     WID=$( wmctrl -lp | grep -P "eyeBeam\b(?=(\n|))" | awk '{print $1}' | xargs printf '%d' )
-    if [[ "$WID" != "" || "$WID" != "0" ]]; then
+    if [[ "$WID" != "" && "$WID" != "0" ]]; then
         echo "$WID"
     fi
-    ((TENTATIVAS++)) && ((TENTATIVAS==200)) && exit 1
+    ((TENTATIVAS++)) && ((TENTATIVAS%50==0)) && sleep 1
+    
+    ((TENTATIVAS==200)) && exit 1
 done
 
-sleep 1
-
+#SUBSTITUA RAMAL PELO NÚMERO DO SEU RAMAL
 xdotool windowactivate --sync "$WID" type --delay 0.1 $RAMAL
 
+#SUBSTITUA SENHA PELA SENHA DO SEU RAMAL.
+#LEMBRE-SE DE MANTER O CERQUILHA (#) NO FIM DA SENHA.
 xdotool windowactivate --sync "$WID" type --delay 0.1 $SENHA#
-
-sleep 5
 
 PID_FIREFOX=$( ps -a | grep firefox | awk '{print $1}' | head -n1 )
 
 if [[ ${#PID_FIREFOX} -eq 0 ]]; then
     firefox -new-tab -url http://totalip5.nube/ &>/dev/null &
+    sleep 5
 else
     firefox -new-tab -url http://totalip5.nube/
 fi
@@ -55,11 +57,12 @@ TENTATIVAS=0
 while [[ "$WID" == "" || "$WID" == "0" ]]; do
     # Busca o ID da janela do programa
     WID=$( wmctrl -lp | grep "softphone" | head -n1 | awk '{print $1}' | xargs printf '%d' )
-    if [[ "$WID" != "" || "$WID" != "0" ]]; then
+    if [[ "$WID" != "" && "$WID" != "0" ]]; then
         echo "$WID"
     fi
+    ((TENTATIVAS++)) && ((TENTATIVAS%50==0)) && sleep 1
 
-    ((TENTATIVAS++)) && ((TENTATIVAS==200)) && exit 2
+    ((TENTATIVAS==200)) && exit 2
 done
 
 sleep 1
